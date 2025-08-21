@@ -4,8 +4,15 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
+import { z } from "zod";
 
-const CircleChart = () => {
+export const circlePercentageScheme = z.object({
+  percentage: z.number().min(0).max(100),
+});
+
+const CircleChart: React.FC<z.infer<typeof circlePercentageScheme>> = ({
+  percentage,
+}) => {
   const frame = useCurrentFrame();
   const { width, height, durationInFrames } = useVideoConfig();
 
@@ -14,9 +21,14 @@ const CircleChart = () => {
     extrapolateRight: "clamp",
   });
 
-  const progress = interpolate(frame, [0, durationInFrames], [0, 100], {
-    extrapolateRight: "clamp",
-  });
+  const progress = interpolate(
+    frame,
+    [0, durationInFrames - 1],
+    [0, percentage],
+    {
+      extrapolateRight: "clamp",
+    },
+  );
 
   const radius = 150;
   const strokeWidth = 40;

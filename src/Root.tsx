@@ -7,7 +7,7 @@ import { AnimatedResume } from "./AnimatedResumeComposition";
 import BasicTransition from "./BasicTransition";
 import MyComponent, { myCompSchema } from "./MyComponent";
 import UserComp, { calcUserCompMetadata, userCompSchema } from "./UserComp";
-import CircleChart from "./CircleChart";
+import CircleChart, { circlePercentageScheme } from "./CircleChart";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -82,6 +82,8 @@ export const RemotionRoot: React.FC = () => {
         fps={30}
         width={1280}
         height={720}
+        defaultProps={{ percentage: 75 }}
+        schema={circlePercentageScheme}
       />
     </>
   );
