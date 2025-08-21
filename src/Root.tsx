@@ -7,6 +7,7 @@ import { AnimatedResume } from "./AnimatedResumeComposition";
 import BasicTransition from "./BasicTransition";
 import MyComponent, { myCompSchema } from "./MyComponent";
 import UserComp, { calcUserCompMetadata, userCompSchema } from "./UserComp";
+import CircleChart from "./CircleChart";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -41,7 +42,7 @@ export const RemotionRoot: React.FC = () => {
         width={1920}
         height={1080}
         fps={30}
-        durationInFrames={30 * 56} // ~56 seconds; actual computed inside can exceed; adjust as needed
+        durationInFrames={30 * 56}
         defaultProps={{}}
       />
       <Composition
@@ -72,6 +73,15 @@ export const RemotionRoot: React.FC = () => {
         defaultProps={{ id: 3, data: null }}
         schema={userCompSchema}
         calculateMetadata={calcUserCompMetadata}
+      />
+
+      <Composition
+        id="CircleChart"
+        component={CircleChart}
+        durationInFrames={150}
+        fps={30}
+        width={1280}
+        height={720}
       />
     </>
   );
