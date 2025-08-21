@@ -1,5 +1,5 @@
 import "./index.css";
-import { Composition } from "remotion";
+import { Composition, Folder } from "remotion";
 import { MyComposition } from "./Composition";
 import MyVideo from "./MyVideo";
 import { MyVideo2 } from "./MyComposition";
@@ -8,6 +8,11 @@ import BasicTransition from "./BasicTransition";
 import MyComponent, { myCompSchema } from "./MyComponent";
 import UserComp, { calcUserCompMetadata, userCompSchema } from "./UserComp";
 import CircleChart, { circlePercentageScheme } from "./CircleChart";
+import ColorBox from "./ColorBox";
+import InterpolateText from "./InterpolateText";
+import SpringText from "./SpringText";
+import { SpringBox } from "./SpringBox";
+import CompareLinearSpring from "./CompareLinearSpring";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -78,13 +83,60 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="CircleChart"
         component={CircleChart}
-        durationInFrames={150}
+        durationInFrames={300}
         fps={30}
         width={1280}
         height={720}
         defaultProps={{ percentage: 75 }}
         schema={circlePercentageScheme}
       />
+
+      <Composition
+        id="ColorBox"
+        component={ColorBox}
+        durationInFrames={150}
+        fps={30}
+        width={1280}
+        height={720}
+      />
+
+      <Composition
+        id="InterpolateText"
+        component={InterpolateText}
+        durationInFrames={150}
+        fps={30}
+        width={1280}
+        height={720}
+      />
+
+      <Composition
+        id="SpringTextComp"
+        component={SpringText}
+        durationInFrames={150}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      <Folder name="SpringAnimations">
+        <Composition
+          id="SpringBoxComp"
+          component={SpringBox}
+          durationInFrames={120}
+          fps={30}
+          width={1920}
+          height={1080}
+        />
+
+        <Composition
+          id="CompareLinearSpringComp"
+          component={CompareLinearSpring}
+          durationInFrames={150}
+          fps={30}
+          width={1280}
+          height={720}
+        />
+      </Folder>
     </>
   );
 };
