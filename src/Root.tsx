@@ -13,6 +13,7 @@ import InterpolateText from "./InterpolateText";
 import SpringText from "./SpringText";
 import { SpringBox } from "./SpringBox";
 import CompareLinearSpring from "./CompareLinearSpring";
+import { GitHubBanner } from "./GitHubBanner";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -137,6 +138,15 @@ export const RemotionRoot: React.FC = () => {
           height={720}
         />
       </Folder>
+
+      <Composition
+        id="GitHubBanner"
+        component={GitHubBanner}
+        durationInFrames={300} // 10s at 30fps
+        fps={30}
+        width={1280}
+        height={400}
+      />
     </>
   );
 };
