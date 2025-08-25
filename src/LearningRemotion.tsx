@@ -14,39 +14,34 @@ import { slide } from "@remotion/transitions/slide";
 import { fade } from "@remotion/transitions/fade";
 
 // ============================================
-// বেসিক কম্পোনেন্ট - Basic Component
+//  Basic Component
 // ============================================
 const BasicText: React.FC<{ text: string }> = ({ text }) => {
-  // এখানে আমরা বর্তমান ফ্রেম এবং ভিডিও কনফিগ ব্যবহার করছি
-  // Using current frame and video config here
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // স্প্রিং এনিমেশন - কোন একটা ভ্যালু কে স্মুথলি এনিমেট করা
   // Spring animation - smoothly animate a value
   const scale = spring({
     frame,
     fps,
     config: {
-      damping: 10, // কম্পন কত দ্রুত কমবে - how fast oscillation reduces
-      mass: 0.5, // ওজন - heaviness of animation
+      damping: 10, // how fast oscillation reduces
+      mass: 0.5, // heaviness of animation
       stiffness: 100, // কত টাইট/শক্ত - spring stiffness
     },
   });
 
-  // ইন্টারপোলেশন - দুই ভ্যালুর মধ্যে স্মুথ ট্রানজিশন
   // Interpolation - smooth transition between values
   const opacity = interpolate(
     frame,
-    [0, 30], // ইনপুট রেঞ্জ - input range
-    [0, 1], // আউটপুট রেঞ্জ - output range
+    [0, 30], //input range
+    [0, 1], // output range
     {
       easing: Easing.bezier(0.25, 0.1, 0.25, 1), // বেজিয়ার কার্ভ
       extrapolateRight: "clamp", // শেষের ভ্যালু ধরে রাখা
     },
   );
 
-  // রঙের ইন্টারপোলেশন - কালার ট্রানজিশন
   // Color interpolation
   const color = interpolateColors(
     frame % 90, // মডুলাস ব্যবহার করে লুপ করা
@@ -70,7 +65,7 @@ const BasicText: React.FC<{ text: string }> = ({ text }) => {
 };
 
 // ============================================
-// অ্যানিমেটেড কার্ড - Animated Card
+// Animated Card
 // ============================================
 const AnimatedCard: React.FC<{
   title: string;
@@ -79,12 +74,12 @@ const AnimatedCard: React.FC<{
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Y অক্ষে অ্যানিমেশন - Animation in Y axis
+  // Animation in Y axis
   const y = interpolate(frame - delay, [0, 30], [50, 0], {
     extrapolateRight: "clamp",
   });
 
-  // রোটেশন অ্যানিমেশন - Rotation animation
+  // Rotation animation
   const rotation = spring({
     frame: frame - delay,
     fps,
@@ -108,7 +103,7 @@ const AnimatedCard: React.FC<{
 };
 
 // ============================================
-// পার্টিকেল সিস্টেম - Particle System
+// Particle System
 // ============================================
 const Particle: React.FC<{
   index: number;
@@ -116,11 +111,11 @@ const Particle: React.FC<{
 }> = ({ index, total }) => {
   const frame = useCurrentFrame();
 
-  // র‍্যান্ডম পজিশন - Random position
+  //  Random position
   const randomX = random(index * 1000) * 1000 - 500;
   const randomY = random(index * 2000) * 1000 - 500;
 
-  // পার্টিকেল মুভমেন্ট - Particle movement
+  // Particle movement
   const progress = ((frame + index * 10) % 60) / 60;
   const scale = interpolate(progress, [0, 1], [0, 1], {
     easing: Easing.cubic,
@@ -156,19 +151,18 @@ const ParticleSystem: React.FC = () => {
 };
 
 // ============================================
-// মাস্টার কম্পোজিশন - Master Composition
+// Master Composition
 // ============================================
 export const LearningRemotionBangla: React.FC = () => {
   const { fps } = useVideoConfig();
 
-  // সময় হিসাব - Time calculation
+  //  Time calculation
   const toFrames = (seconds: number) => seconds * fps;
 
   return (
     <AbsoluteFill style={{ background: "#1a1a1a" }}>
-      {/* সিকোয়েন্স সিরিজ - Sequence Series */}
       <Series>
-        {/* প্রথম সিন - First Scene */}
+        {/* First Scene */}
         <Series.Sequence durationInFrames={toFrames(3)}>
           <AbsoluteFill
             style={{
@@ -180,7 +174,7 @@ export const LearningRemotionBangla: React.FC = () => {
           </AbsoluteFill>
         </Series.Sequence>
 
-        {/* দ্বিতীয় সিন - Second Scene */}
+        {/* - Second Scene */}
         <Series.Sequence durationInFrames={toFrames(5)}>
           <AbsoluteFill
             style={{
@@ -196,13 +190,13 @@ export const LearningRemotionBangla: React.FC = () => {
           </AbsoluteFill>
         </Series.Sequence>
 
-        {/* তৃতীয় সিন - Third Scene */}
+        {/*  Third Scene */}
         <Series.Sequence durationInFrames={toFrames(4)}>
           <ParticleSystem />
         </Series.Sequence>
       </Series>
 
-      {/* ট্রানজিশন সিরিজ - Transition Series */}
+      {/* Transition Series */}
       <TransitionSeries>
         <TransitionSeries.Sequence durationInFrames={toFrames(3)}>
           <AbsoluteFill
