@@ -14,65 +14,91 @@ const CircleChart: React.FC<z.infer<typeof circlePercentageScheme>> = ({
   percentage,
 }) => {
   const frame = useCurrentFrame();
-  const { width, height, durationInFrames } = useVideoConfig();
+  const { durationInFrames } = useVideoConfig();
 
+  // Fade-in
   const opacity = interpolate(frame, [0, 40], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
+  // Animate % from 0 → target
   const progress = interpolate(
     frame,
     [0, durationInFrames - 1],
     [0, percentage],
-    {
-      extrapolateRight: "clamp",
-    },
+    { extrapolateRight: "clamp" },
   );
 
-  const radius = 150;
+  // Convert percentage → degrees
+  const angle = (progress / 100) * 360;
+
+  const size = 300;
   const strokeWidth = 40;
-  const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset = circumference - (progress / 100) * circumference;
+  const redStrokeWidth = strokeWidth - 10; // thinner red ring
 
   return (
     <AbsoluteFill className="bg-gray-800 flex items-center justify-center">
-      <svg width={width} height={height - 300} viewBox="0 0 400 400">
-        <g opacity={opacity} transform="translate(20, 20)">
-          <circle
-            cx="200"
-            cy="200"
-            r={radius}
-            stroke="white"
-            strokeWidth={strokeWidth}
-            fill="none"
-          />
+      <div
+        style={{
+          position: "relative",
+          width: size,
+          height: size,
+          borderRadius: "50%",
+          opacity,
+        }}
+      >
+        {/* Base ring (white background ring) */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            borderRadius: "50%",
+            border: `${strokeWidth}px solid white`,
+            boxSizing: "border-box",
+          }}
+        />
 
-          <circle
-            cx="200"
-            cy="200"
-            r={radius}
-            stroke="red"
-            strokeWidth={strokeWidth - 10}
-            fill="none"
-            strokeLinecap="round"
-            strokeDasharray={circumference}
-            strokeDashoffset={strokeDashoffset}
-            transform="rotate(-90 200 200)"
-          />
+        {/* Progress ring (thinner red filling) */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            borderRadius: "50%",
+            background: `conic-gradient(red ${angle}deg, transparent 0deg)`,
+            mask: `radial-gradient(farthest-side, transparent calc(100% - ${redStrokeWidth}px), black 0)`,
+            WebkitMask: `radial-gradient(farthest-side, transparent calc(100% - ${redStrokeWidth}px), black 0)`,
+          }}
+        />
 
-          <text
-            x="210"
-            y="220"
-            textAnchor="middle"
-            fontSize="60"
-            fontWeight="bold"
-            fill="white"
-          >
-            {Math.round(progress)}%
-          </text>
-        </g>
-      </svg>
+        {/* Inner cutout to keep donut clean */}
+        <div
+          style={{
+            position: "absolute",
+            top: strokeWidth / 2,
+            left: strokeWidth / 2,
+            right: strokeWidth / 2,
+            bottom: strokeWidth / 2,
+            borderRadius: "50%",
+            backgroundColor: "rgb(31 41 55)", // bg-gray-800
+          }}
+        />
+
+        {/* Text in center */}
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            fontSize: 60,
+            fontWeight: "bold",
+            color: "white",
+          }}
+        >
+          {Math.round(progress)}%
+        </div>
+      </div>
     </AbsoluteFill>
   );
 };

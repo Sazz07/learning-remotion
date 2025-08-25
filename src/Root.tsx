@@ -14,6 +14,7 @@ import SpringText from "./SpringText";
 import { SpringBox } from "./SpringBox";
 import CompareLinearSpring from "./CompareLinearSpring";
 import { GitHubBanner } from "./GitHubBanner";
+import Template1 from "./Template1";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -90,6 +91,15 @@ export const RemotionRoot: React.FC = () => {
         height={720}
         defaultProps={{ percentage: 75 }}
         schema={circlePercentageScheme}
+      />
+
+      <Composition
+        id="Template1"
+        component={Template1}
+        durationInFrames={300}
+        fps={30}
+        width={1280}
+        height={720}
       />
 
       <Composition
