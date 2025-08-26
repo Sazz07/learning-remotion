@@ -112,7 +112,7 @@ export const RemotionRoot: React.FC = () => {
         height={720}
         schema={template2Schema}
         defaultProps={{
-          text: "John F Kennedy - 1984",
+          text: "John F Kennedy - 1984.",
           theme: "theme1",
         }}
       />

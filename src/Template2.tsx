@@ -59,19 +59,18 @@ const themes = {
 const Template2: React.FC<Template2Props> = ({ text, theme }) => {
   const frame = useCurrentFrame();
 
-  // Animations
   const startOpacity = interpolate(frame, [0, 15], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  const progress = interpolate(frame, [20, 240], [0, 4], {
+  const progress = interpolate(frame, [20, 100], [0, 4], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
     easing: Easing.linear,
   });
 
-  const textOpacity = interpolate(frame, [250, 280], [0, 1], {
+  const textOpacity = interpolate(frame, [110, 150], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -97,7 +96,7 @@ const Template2: React.FC<Template2Props> = ({ text, theme }) => {
           className="w-full h-full object-cover"
         />
 
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 -top-1 -right-1 -bottom-1 -left-1">
           {/* Top */}
           <div
             className="absolute top-0 left-0 h-2"
