@@ -7,9 +7,11 @@
   "private": true,
   "dependencies": {
     "@remotion/cli": "4.0.339",
+    "@remotion/google-fonts": "^4.0.340",
     "@remotion/tailwind-v4": "4.0.339",
     "@remotion/transitions": "^4.0.339",
     "@remotion/zod-types": "4.0.339",
+    "clsx": "^2.1.1",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "remotion": "4.0.339",

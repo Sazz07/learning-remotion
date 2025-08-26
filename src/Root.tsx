@@ -15,6 +15,7 @@ import { SpringBox } from "./SpringBox";
 import CompareLinearSpring from "./CompareLinearSpring";
 import { GitHubBanner } from "./GitHubBanner";
 import Template1 from "./Template1";
+import Template2, { template2Schema } from "./Template2";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -100,6 +101,17 @@ export const RemotionRoot: React.FC = () => {
         fps={30}
         width={1280}
         height={720}
+      />
+
+      <Composition
+        id="Template2"
+        component={Template2}
+        durationInFrames={300}
+        fps={30}
+        width={1280}
+        height={720}
+        schema={template2Schema}
+        defaultProps={{ text: "This is a sample text for Template 2" }}
       />
 
       <Composition
