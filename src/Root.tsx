@@ -111,7 +111,10 @@ export const RemotionRoot: React.FC = () => {
         width={1280}
         height={720}
         schema={template2Schema}
-        defaultProps={{ text: "This is a sample text for Template 2" }}
+        defaultProps={{
+          text: "John F Kennedy - 1984",
+          theme: "theme1",
+        }}
       />
 
       <Composition
