@@ -8,7 +8,6 @@ import {
 } from "remotion";
 import { z } from "zod";
 
-// Props schema for safe input
 export const template2Schema = z.object({
   text: z
     .string()
@@ -21,69 +20,61 @@ export type Template2Props = z.infer<typeof template2Schema>;
 const Template2: React.FC<Template2Props> = ({ text }) => {
   const frame = useCurrentFrame();
 
-  // Border animation (clockwise)
-  const topWidth = interpolate(frame, [0, 45], [0, 100], {
+  const progress = interpolate(frame, [0, 240], [0, 4], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
-    easing: Easing.ease,
+    easing: Easing.linear,
   });
-  const rightHeight = interpolate(frame, [45, 90], [0, 100], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-    easing: Easing.ease,
-  });
-  const bottomWidth = interpolate(frame, [90, 135], [0, 100], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-    easing: Easing.ease,
-  });
-  const leftHeight = interpolate(frame, [135, 180], [0, 100], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-    easing: Easing.ease,
-  });
-
-  // Text fade in after border is complete
-  const textOpacity = interpolate(frame, [200, 230], [0, 1], {
+  const textOpacity = interpolate(frame, [250, 280], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  // Truncate long text
   const safeText =
     text.length > 200 ? text.substring(0, 197).trim() + "..." : text;
 
   return (
     <AbsoluteFill className="bg-black flex items-center justify-center">
       <div className="relative size-1/2 flex flex-col items-center -translate-y-10">
-        {/* Image */}
+        {/* Background image */}
         <Img
           src={staticFile("assets/template1.jpeg")}
           className="w-full h-full object-cover"
         />
 
-        {/* Borders */}
-        {/* Top */}
-        <div
-          className="absolute top-0 left-0 h-2 bg-white/80"
-          style={{ width: `${topWidth}%` }}
-        />
-        {/* Right */}
-        <div
-          className="absolute top-0 right-0 w-2 bg-white/80"
-          style={{ height: `${rightHeight}%` }}
-        />
-        {/* Bottom */}
-        <div
-          className="absolute bottom-0 right-0 h-2 bg-white/80"
-          style={{ width: `${bottomWidth}%` }}
-        />
-        {/* Left */}
-        <div
-          className="absolute bottom-0 left-0 w-2 bg-white/80"
-          style={{ height: `${leftHeight}%` }}
-        />
+        {/* Animated border */}
+        <div className="absolute inset-0">
+          {/* Top side */}
+          <div
+            className="absolute -top-1 left-0 h-2 bg-white/80 overflow-hidden"
+            style={{
+              width: `${Math.min(progress, 1) * 100}%`,
+            }}
+          />
+          {/* Right side */}
+          <div
+            className="absolute top-0 right-0 w-2 bg-white/80 overflow-hidden"
+            style={{
+              height: `${Math.max(0, Math.min(progress - 1, 1)) * 100}%`,
+            }}
+          />
+          {/* Bottom side */}
+          <div
+            className="absolute -bottom-1 right-0 h-2 bg-white/80 overflow-hidden"
+            style={{
+              width: `${Math.max(0, Math.min(progress - 2, 1)) * 100}%`,
+            }}
+          />
+          {/* Left side */}
+          <div
+            className="absolute bottom-0 left-0 w-2 bg-white/80 overflow-hidden"
+            style={{
+              height: `${Math.max(0, Math.min(progress - 3, 1)) * 100}%`,
+            }}
+          />
+        </div>
 
+        {/* Text */}
         <h1
           className="text-white text-center text-4xl pt-6"
           style={{ opacity: textOpacity }}
