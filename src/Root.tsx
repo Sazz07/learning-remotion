@@ -16,7 +16,19 @@ import CompareLinearSpring from "./CompareLinearSpring";
 import { GitHubBanner } from "./GitHubBanner";
 import Template1 from "./Template1";
 import Template2, { template2Schema } from "./Template2";
-import Template3 from "./Template3";
+import { Template3, templateSchema } from "./Template3";
+
+const paragraphs = [
+  "This animation highlights specific text within paragraphs. You can use it to draw attention to important phrases or concepts.",
+  "The animation moves sequentially through all paragraphs, highlighting each marked phrase. You can customize text styling and effects via themes.",
+  "For best results, keep highlight phrases relatively short and ensure they exactly match text within the paragraph.",
+];
+
+const highlights = [
+  "highlights specific text within paragraphs.",
+  "sequentially through all paragraphs,",
+  "exactly match text",
+];
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -126,6 +138,12 @@ export const RemotionRoot: React.FC = () => {
           fps={30}
           width={1280}
           height={720}
+          defaultProps={{
+            paragraphs,
+            highlights,
+            highlightColor: "#fde047",
+          }}
+          schema={templateSchema}
         />
       </Folder>
 
