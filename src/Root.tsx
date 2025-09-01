@@ -16,6 +16,7 @@ import CompareLinearSpring from "./CompareLinearSpring";
 import { GitHubBanner } from "./GitHubBanner";
 import Template1 from "./Template1";
 import Template2, { template2Schema } from "./Template2";
+import Template3 from "./Template3";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -94,28 +95,39 @@ export const RemotionRoot: React.FC = () => {
         schema={circlePercentageScheme}
       />
 
-      <Composition
-        id="Template1"
-        component={Template1}
-        durationInFrames={300}
-        fps={30}
-        width={1280}
-        height={720}
-      />
+      <Folder name="Templates">
+        <Composition
+          id="Template1"
+          component={Template1}
+          durationInFrames={300}
+          fps={30}
+          width={1280}
+          height={720}
+        />
 
-      <Composition
-        id="Template2"
-        component={Template2}
-        durationInFrames={300}
-        fps={30}
-        width={1280}
-        height={720}
-        schema={template2Schema}
-        defaultProps={{
-          text: "John F Kennedy - 1984.",
-          theme: "theme1",
-        }}
-      />
+        <Composition
+          id="Template2"
+          component={Template2}
+          durationInFrames={300}
+          fps={30}
+          width={1280}
+          height={720}
+          schema={template2Schema}
+          defaultProps={{
+            text: "John F Kennedy - 1984.",
+            theme: "theme1",
+          }}
+        />
+
+        <Composition
+          id="Template3"
+          component={Template3}
+          durationInFrames={300}
+          fps={30}
+          width={1280}
+          height={720}
+        />
+      </Folder>
 
       <Composition
         id="ColorBox"
