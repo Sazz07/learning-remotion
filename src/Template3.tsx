@@ -40,7 +40,6 @@ export const Template3: React.FC<TemplateProps> = ({
     extrapolateRight: "clamp",
   });
 
-  // Edge case: no paragraphs
   if (!paragraphs || paragraphs.length === 0) {
     return (
       <AbsoluteFill className="flex items-center justify-center bg-white">
@@ -121,7 +120,6 @@ export const Template3: React.FC<TemplateProps> = ({
                   borderRadius: 4,
                 }}
               >
-                {/* Highlight background animation */}
                 <span
                   style={{
                     position: "absolute",
@@ -133,7 +131,7 @@ export const Template3: React.FC<TemplateProps> = ({
                     zIndex: 0,
                   }}
                 />
-                {/* Bold highlight text */}
+
                 <strong
                   style={{ position: "relative", zIndex: 1, fontWeight: 600 }}
                 >
