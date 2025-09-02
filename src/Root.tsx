@@ -17,6 +17,8 @@ import { GitHubBanner } from "./GitHubBanner";
 import Template1 from "./Template1";
 import Template2, { template2Schema } from "./Template2";
 import { Template3, templateSchema } from "./Template3";
+import Template4 from "./Template4";
+import TemplateFour, { TemplateFourSchema } from "./TemplateFour";
 
 const paragraphs = [
   "This animation highlights specific text within paragraphs. You can use it to draw attention to important phrases or concepts.",
@@ -144,6 +146,50 @@ export const RemotionRoot: React.FC = () => {
             highlightColor: "#fde047",
           }}
           schema={templateSchema}
+        />
+
+        <Composition
+          id="Template4"
+          component={Template4}
+          durationInFrames={180}
+          fps={30}
+          width={1280}
+          height={720}
+        />
+
+        <Composition
+          id="TemplateFour"
+          component={TemplateFour}
+          durationInFrames={220}
+          fps={30}
+          width={1280}
+          height={720}
+          schema={TemplateFourSchema}
+          defaultProps={{
+            title: "TOP TECH TRENDS 2024",
+            items: [
+              "ARTIFICIAL INTELLIGENCE",
+              "QUANTUM COMPUTING",
+              "SUSTAINABLE TECH",
+              "CYBER SECURITY",
+              "MIXED REALITY",
+            ],
+            colors: {
+              background: "#000000",
+              text: "#ffffff",
+              highlight: "#ec4899",
+              divider: "#ffffff",
+            },
+            timings: {
+              titleDelay: 0,
+              dividerDelay: 10,
+              zoomDelay: 30,
+              itemRevealDelay: 60,
+              itemStagger: 15,
+              highlightStart: 120,
+              highlightDuration: 20,
+            },
+          }}
         />
       </Folder>
 
