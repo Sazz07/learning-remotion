@@ -6,15 +6,15 @@ import {
   interpolate,
 } from "remotion";
 import { z } from "zod";
+import { BrushStroke } from "./components/BrushStroke";
 
-// ------------------ Schema ------------------
 export const TemplateFourSchema = z.object({
   title: z.string().min(1, "Title is required"),
   items: z.array(z.string().min(1)).min(1, "At least one item is required"),
   colors: z.object({
-    background: z.string().default("#000000"),
+    background: z.string().default("#0C0C0C"),
     text: z.string().default("#ffffff"),
-    highlight: z.string().default("#ec4899"),
+    highlight: z.string().default("#FA0053"),
     divider: z.string().default("#ffffff"),
   }),
   timings: z.object({
@@ -30,7 +30,6 @@ export const TemplateFourSchema = z.object({
 
 export type TemplateFourProps = z.infer<typeof TemplateFourSchema>;
 
-// ------------------ Component ------------------
 const TemplateFour: React.FC<TemplateFourProps> = (props) => {
   const { title, items, colors, timings } = TemplateFourSchema.parse(props);
 
@@ -47,7 +46,7 @@ const TemplateFour: React.FC<TemplateFourProps> = (props) => {
     durationInFrames: 30,
   });
 
-  // Divider grow (left-to-right, like loading bar)
+  // Divider grow
   const lineProgress = spring({
     frame: frame - timings.dividerDelay,
     fps,
@@ -62,7 +61,7 @@ const TemplateFour: React.FC<TemplateFourProps> = (props) => {
     frame: frame - timings.zoomDelay,
     fps,
     from: 0.8,
-    to: 1,
+    to: 1.2,
     config: { mass: 1, damping: 200 },
     durationInFrames: 30,
   });
@@ -72,6 +71,25 @@ const TemplateFour: React.FC<TemplateFourProps> = (props) => {
       style={{ backgroundColor: colors.background }}
       className="flex flex-col items-center justify-center"
     >
+      {/* vignette effects */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: `radial-gradient(circle at center, rgba(0,0,0,0) 55%, rgba(0,0,0,0.2) 75%, rgba(0,0,0,0.4) 100%)`,
+          pointerEvents: "none",
+          zIndex: 10,
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: `linear-gradient(45deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 80%, rgba(0,0,0,0.2) 100%)`,
+          pointerEvents: "none",
+          zIndex: 10,
+        }}
+      />
       {/* Title + Divider */}
       <div
         style={{ transform: `scale(${zoomIn})` }}
@@ -89,7 +107,7 @@ const TemplateFour: React.FC<TemplateFourProps> = (props) => {
 
         {/* Divider animation */}
         <div className="mb-8 flex justify-center w-full">
-          <div className="relative w-[20rem]">
+          <div className="relative w-[25rem]">
             <div
               style={{
                 width: `${lineProgress * 100}%`,
@@ -132,14 +150,18 @@ const TemplateFour: React.FC<TemplateFourProps> = (props) => {
                 opacity: reveal,
                 color: colors.text,
               }}
-              className="relative flex items-center text-2xl font-bold"
+              className="relative flex items-center text-3xl"
             >
-              <div
+              <BrushStroke
+                color={colors.highlight}
+                widthPercent={100 - highlightRemove}
+                id={`brush-${i}`}
                 style={{
-                  clipPath: `inset(0 0 0 ${highlightRemove}%)`,
-                  backgroundColor: colors.highlight,
+                  left: "10px",
+                  width: "calc(100% - 10px)",
+                  top: "0px",
+                  height: "40px",
                 }}
-                className="absolute left-10 right-1 h-6 rounded-md z-10"
               />
 
               {/* Text */}

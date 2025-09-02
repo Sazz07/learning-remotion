@@ -17,7 +17,6 @@ import { GitHubBanner } from "./GitHubBanner";
 import Template1 from "./Template1";
 import Template2, { template2Schema } from "./Template2";
 import { Template3, templateSchema } from "./Template3";
-import Template4 from "./Template4";
 import TemplateFour, { TemplateFourSchema } from "./TemplateFour";
 
 const paragraphs = [
@@ -149,18 +148,9 @@ export const RemotionRoot: React.FC = () => {
         />
 
         <Composition
-          id="Template4"
-          component={Template4}
-          durationInFrames={180}
-          fps={30}
-          width={1280}
-          height={720}
-        />
-
-        <Composition
           id="TemplateFour"
           component={TemplateFour}
-          durationInFrames={220}
+          durationInFrames={300}
           fps={30}
           width={1280}
           height={720}
@@ -175,9 +165,9 @@ export const RemotionRoot: React.FC = () => {
               "MIXED REALITY",
             ],
             colors: {
-              background: "#000000",
+              background: "#0C0C0C",
               text: "#ffffff",
-              highlight: "#ec4899",
+              highlight: "#FA0053",
               divider: "#ffffff",
             },
             timings: {
